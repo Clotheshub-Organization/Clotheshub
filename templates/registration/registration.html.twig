@@ -1,0 +1,20 @@
+{% extends 'home.html.twig' %}
+
+{% block title %}Hello RegistrationController!{% endblock %}
+
+{% block body %}
+<section class="bg-light my-5 container">
+    <div class="row text-center py-3">
+        <div class="col-lg-6 m-auto">
+            <h1 class="h1">Registration</h1>
+        </div>
+    </div>
+    <section class="register-container">
+        {{ form_start(registrationForm) }}
+        {{ form_widget(registrationForm) }}
+        {{ form_end(registrationForm) }}  
+        <p>Login with an account <a href="{{path('login')}}">right here</a></p>
+    </section>
+</section>
+
+{% endblock %}

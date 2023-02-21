@@ -1,0 +1,86 @@
+{% extends 'home.html.twig' %}
+
+{% block body %}
+<section class="bg-light my-5 container">
+    <div class="row text-center py-3">
+        <div class="col-lg-6 m-auto">
+            <h1 class="h1">Product Manage</h1>
+        </div>
+    </div>
+    <div className="page-heading pb-2 mt-4 mb-2 ">
+        <div class="page-content">
+            <div class="card">
+                <div class="card-content">
+                    <div class="card-body">
+                        {# <form class="form form-vertical" method="POST" action="#"> #}
+                        {{ form_start(form,{'attr':{'class':'form form-vertical'}} ) }}
+                            <div class="form-body">
+                                <div class="row">
+                                    <div class="col-12">
+                                        {# <div class="form-group">
+                                            <label for="first-name-vertical">Category</label>
+                                            {{ form_widget(form.categorys)}}
+                                            <input type="text" id="pname" class="form-control"
+                                                name="Product_Name" placeholder="Product Name"
+                                                value ="">
+                                        </div> #}
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <label for="first-name-vertical">Product Name</label>
+                                            {{ form_widget(form.productname) }}
+                                            {# <input type="text" id="pname" class="form-control"
+                                                name="Product_Name" placeholder="Product Name"
+                                                value =""> #}
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <label for="contact-info-vertical">Price</label>
+                                            {{ form_widget(form.productprice) }}
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <label for="contact-info-vertical">Brand</label>
+                                            {{ form_widget(form.Brand) }}
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <label for="image-vertical"> {{ form_label(form.file) }}</label>
+                                            {{ form_widget(form.file) }}
+                                        </div>
+                                    </div>
+                                        {{ form_widget(form.image) }}
+                                        <div class="pt-3">
+                                        {% set img = form.image.vars.value %}
+                                            {% if img %}
+                                                <img src="{{asset('img/'~img)}}"
+                                            class="w-25 shadow p-3 mb-5 bg-body rounded" />
+                                            {% else %}
+                                                <img src="https://cdn2.iconfinder.com/data/icons/symbol-blue-set-3/100/Untitled-1-94-512.png"
+                                            class="w-25 shadow p-3 mb-5 bg-body rounded" />
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="contact-info-vertical">Description</label>
+                                        {{ form_widget(form.productdes) }}
+                                    </div>
+                                    <div class="col-12 d-flex justify-content-end pt-2">
+                                        {{ form_widget(form.save,{'attr':{'class':'btn btn-primary'}}) }}
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="{{path('product_manage')}}"><button type="button" style="margin: 5px; margin-bottom:20px; margin-right:17px; float: right;" class="btn btn-outline-primary">Back to product manage</button></a>
+                            <a href="{{path('brand_manage')}}"><button type="button" style="margin: 5px; margin-bottom:20px; float: right;" class="btn btn-outline-primary">Brand manage</button></a>
+                        {{ form_end(form) }}
+                    </div> <!--card body-->
+                </div> <!--card content-->
+            </div> <!--card-->
+        </div><!--page content-->
+    </div><!--page-heading-->
+</section>
+
+{% endblock %}

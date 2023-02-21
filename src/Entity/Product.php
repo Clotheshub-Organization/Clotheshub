@@ -37,12 +37,6 @@ class Product
      */
     private $productprice;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Brand::class, inversedBy="products")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $Brand;
-
     public function getId()
     {
         return $this->id;

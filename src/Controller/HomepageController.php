@@ -14,9 +14,11 @@ class HomepageController extends AbstractController
     /**
      * @Route("Clotheshub/homepage", name="homepage")
      */
-    public function ShowHomepage(): Response
+    public function ShowHomepage(ProductRepository $repo): Response
     {
+        $product = $repo->findAll();
         return $this->render('homepage/homepage.html.twig', [
+            'product' => $product
         ]);
     }
 

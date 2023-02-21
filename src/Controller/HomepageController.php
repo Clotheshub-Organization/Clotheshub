@@ -19,4 +19,34 @@ class HomepageController extends AbstractController
         return $this->render('homepage/homepage.html.twig', [
         ]);
     }
+
+     /**
+     * @Route("Clotheshub/about", name="homepageAbout")
+     */
+    public function showAbout(): Response
+    {
+        return $this->render('homepage/about.html.twig', [
+            'AboutController' => 'AboutController',
+        ]);
+    }
+
+    /**
+     * @Route("Clotheshub/contact", name="homepageContact")
+     */
+    public function showContact(): Response
+    {
+        return $this->render('homepage/contact.html.twig', [
+            'ContactController' => 'ContactController',
+        ]);
+    }
+
+    /**
+     * @Route("Clotheshub/cart", name="homepageCart")
+     */
+    public function showCart(): Response
+    {
+        return $this->render('homepage/cart.html.twig', [
+            'CartController' => 'CartController',
+        ]);
+    }
 }

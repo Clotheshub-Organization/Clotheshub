@@ -41,6 +41,17 @@ class ProductController extends AbstractController
     }
 
     /**
+     * @Route("Clotheshub/brand/{id}", name="brand_product", requirements={"id"="\d+"} )
+     */
+    public function showBrandProduct(ProductRepository $repo, int $id): Response
+    {
+        $product = $repo->findByProduct($id);
+        return $this->render('brand/product.html.twig', [
+            'product' => $product
+        ]);
+    }
+
+    /**
      * @Route("Clotheshub/search", name="search", methods="GET")
      */
     public function searchProduct(ProductRepository $repo, Request $req): Response

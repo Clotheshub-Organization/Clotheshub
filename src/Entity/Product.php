@@ -38,6 +38,12 @@ class Product
      */
     private $productprice;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Brand::class, inversedBy="products")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $Brand;
+
     public function getId()
     {
         return $this->id;
@@ -87,6 +93,18 @@ class Product
     public function setProductprice(string $productprice): self
     {
         $this->productprice = $productprice;
+
+        return $this;
+    }
+
+    public function getBrand(): ?Brand
+    {
+        return $this->Brand;
+    }
+
+    public function setBrand(?Brand $Brand): self
+    {
+        $this->Brand = $Brand;
 
         return $this;
     }

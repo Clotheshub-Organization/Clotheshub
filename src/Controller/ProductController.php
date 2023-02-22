@@ -30,6 +30,17 @@ class ProductController extends AbstractController
         ]);
     }
 
+    /**
+     * @Route("Clotheshub/product/{id}", name="product_detail", requirements={"id"="\d+"})
+     */
+    public function productDetail(Product $product): Response
+    {
+        return $this->render('product/productdetail.html.twig', [
+            'product' => $product
+        ]);
+    }
+
+
     //  /**
     //  * @Route("/add", name="product_create")
     //  */

@@ -17,12 +17,14 @@ class HomepageController extends AbstractController
     public function ShowHomepage(ProductRepository $repo): Response
     {
         $product = $repo->findAll();
+        $brand = $repo->findAll();
         return $this->render('homepage/homepage.html.twig', [
-            'product' => $product
+            'product' => $product,
+            'brand' => $brand
         ]);
     }
 
-     /**
+    /**
      * @Route("Clotheshub/about", name="homepageAbout")
      */
     public function showAbout(): Response
@@ -49,6 +51,16 @@ class HomepageController extends AbstractController
     {
         return $this->render('homepage/cart.html.twig', [
             'CartController' => 'CartController',
+        ]);
+    }
+
+    /**
+     * @Route("Clotheshub/product/{id}", name="product_detail", requirements={"id"="\d+"})
+     */
+    public function productDetail(Product $product): Response
+    {
+        return $this->render('product/productdetail.html.twig', [
+            'product' => $product
         ]);
     }
 }

@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\ProductRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Proxies\__CG__\App\Entity\Brand;
 
 /**
  * @ORM\Entity(repositoryClass=ProductRepository::class)

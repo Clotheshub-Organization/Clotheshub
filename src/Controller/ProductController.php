@@ -40,7 +40,17 @@ class ProductController extends AbstractController
         ]);
     }
 
-
+    /**
+     * @Route("Clotheshub/search", name="search", methods="GET")
+     */
+    public function searchProduct(ProductRepository $repo, Request $req): Response
+    {
+        $search = $req->query->get("search");
+        $product = $repo->findByProductName($search);
+        return $this->render('search/product.html.twig', [
+            'product' => $product
+        ]);
+    }
 
 
     //  /**

@@ -54,23 +54,42 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{path('homepageContact')}}">Contact</a>
                         </li>
+                        {% if is_granted('ROLE_ADMIN')%}
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="dropdown" data-bs-toggle="dropdown"
                              aria-haspopup="true" aria-expanded="false">Manage</a>
                             <ul class="dropdown-menu" aria-labelledby="dropdown03">
-                                <li><a class="dropdown-item" href="#">Products</a></li>
-                                <li><a class="dropdown-item" href="#">Brands</a></li>
+                                <li><a class="dropdown-item" href="{{path('product_manage')}}">Products</a></li>
+                                <li><a class="dropdown-item" href="{{path('brand_manage')}}">Brands</a></li>
                             </ul>
                         </li>
+                        {% endif %}
+                        {% if app.user %}
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Logout</a>
+                            <a class="nav-link" href="{{path('logout')}}">Logout</a>
                         </li>
+                        <li class="nav-item">
+                            <p class="nav-link">Wellcome {{app.user.name}}</p>
+                        </li>
+                        {% else %}
                         <li class="nav-item">
                             <a class="nav-link" href="{{path('login')}}">Login</a>
                         </li>
+                        {% endif %}
                     </ul>
                 </div>
-                
+                <div class="navbar align-self-center d-flex">
+                    <div class="search">
+                        <form class="searchbox" action="search" method="GET">
+                            <input type="text" class="form-control" placeholder="Search..." name="search">
+                            <button class="search_button"><i class="fa fa-fw fa-search text-dark mr-2"></i></button>
+                        </form>
+                    </div>  
+                    <a class="nav-icon position-relative text-decoration-none" href="{{path('homepageCart' )}}">
+                        <i class="fa fa-fw fa-cart-arrow-down text-dark mr-1"></i>
+                        <span class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark"></span>
+                    </a>
+                </div>
             </div>
         </div>
     </nav>

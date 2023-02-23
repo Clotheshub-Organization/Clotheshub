@@ -63,6 +63,17 @@ class ProductController extends AbstractController
         ]);
     }
 
+    /**
+     * @Route("Clotheshub/product/manage", name="product_manage")
+     */
+    public function showProduct(): Response
+    {
+        $product = $this->repo->findAll();
+        return $this->render('product/manage.html.twig', [
+            'product' => $product
+        ]);
+    }
+
 
     //  /**
     //  * @Route("/add", name="product_create")

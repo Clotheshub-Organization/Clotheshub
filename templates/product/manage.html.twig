@@ -1,0 +1,48 @@
+{% extends 'home.html.twig' %}
+
+{% block body %}
+<section class="bg-light my-5 container" style="margin-bottom:30px">
+  <div class="row text-center py-3">
+      <div class="col-lg-6 m-auto">
+          <h1 class="h1">Products Manage</h1>
+      </div>
+  </div>
+  <div className="page-heading pb-2 mt-4 mb-2 ">      
+    <div class="page-content">
+      <div class="card">
+        <div class="container mb-3">
+            <div class="table-responsive text-nowrap">
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th style="text-align: center">Edit</th>
+                    <th style="text-align: center">Delete</th>
+                  </tr>
+                </thead>
+                <tbody class="table-border-bottom-0">
+                  {% for p in product %}
+                      <tr>
+                          <td>{{ p.id}}</td>
+                          <td>{{ p.productname}}</td>
+                          <td>${{ p.productprice}}</td>
+                          <td style="text-align: center">
+                            <a href="#"><i class="fa-solid fa-pen-to-square"></i></i></i></a>
+                          <td style="text-align: center">
+                            <a href="#"><i class="fa-solid fa-trash"></i></i></a></td>
+                      </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+              <a href="#"><button type="button" style="margin: 5px auto; float: right;" class="btn btn-outline-primary">Add new product</button></a>
+              <a href="#"><button type="button" style="margin: 5px; margin-right: 10px; float: right;" class="btn btn-outline-primary">Brand manage</button></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

@@ -20,6 +20,17 @@ class BrandController extends AbstractController
         $this->repo = $repo;
     }
 
+     /**
+     * @Route("Clotheshub/brand/{id}", name="brand_product", requirements={"id"="\d+"} )
+     */
+    public function showBrandProduct(ProductRepository $productRepo, int $id): Response
+    {
+        $product = $productRepo->findByProduct($id);
+        return $this->render('brand/product.html.twig', [
+            'product' => $product
+        ]);
+    }
+
     /**
      * @Route("Clotheshub/brand/manage", name="brand_manage")
      */
@@ -69,5 +80,6 @@ class BrandController extends AbstractController
             'form' => $form->createView()
         ]);
     }
+
 
 }

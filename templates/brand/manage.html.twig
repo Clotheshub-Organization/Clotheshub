@@ -17,7 +17,8 @@
                   <tr>
                     <th>ID</th>
                     <th>Brand Name</th>
-                    
+                    <th style="text-align: center">Edit</th>
+                    <th style="text-align: center">Delete</th>
                   </tr>
                 </thead>
                 <tbody class="table-border-bottom-0">
@@ -25,11 +26,16 @@
                       <tr>
                           <td>{{ b.id}}</td>
                           <td>{{ b.brandname}}</td>
+                          <td style="text-align: center">
+                            <a href=""><i class="fa-solid fa-pen-to-square"></i></i></i></a>
+                          <td style="text-align: center">
+                            <a href=""><i class="fa-solid fa-trash"></i></i></a></td>
                       </tr>
                   {% endfor %}
                 </tbody>
               </table>
               <a href="{{path('brand_create')}}"><button type="button" style="margin: 5px auto; float: right;" class="btn btn-outline-primary">Add new brand</button></a>
+              <a href="{{path('product_manage')}}"><button type="button" style="margin: 5px; margin-right: 10px; float: right;" class="btn btn-outline-primary">Products manage</button></a>
           </div>
         </div>
       </div>

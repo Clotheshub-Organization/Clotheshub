@@ -32,7 +32,7 @@ class BrandController extends AbstractController
     }
 
     /**
-     * @Route("Clotheshub/brand/add", name="brand_create")
+     * @Route("Clotheshub/brand/manage/add", name="brand_create")
      */
     public function createBrandAction(Request $req, SluggerInterface $slugger): Response
     {
@@ -48,4 +48,6 @@ class BrandController extends AbstractController
             'form' => $form->createView()
         ]);
     }
+
+    
 }

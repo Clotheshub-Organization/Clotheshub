@@ -20,7 +20,7 @@ class BrandController extends AbstractController
         $this->repo = $repo;
     }
 
-     /**
+    /**
      * @Route("Clotheshub/brand/{id}", name="brand_product", requirements={"id"="\d+"} )
      */
     public function showBrandProduct(ProductRepository $productRepo, int $id): Response
@@ -81,5 +81,13 @@ class BrandController extends AbstractController
         ]);
     }
 
+    /**
+     * @Route("Clotheshub/brand/manage/delete/{id}",name="brand_delete", requirements={"id"="\d+"})
+     */
 
+    public function deleteBrandAction(Request $request, Brand $b): Response
+    {
+        $this->repo->remove($b, true);
+        return $this->redirectToRoute('brand_manage', [], Response::HTTP_SEE_OTHER);
+    }
 }

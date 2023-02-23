@@ -29,7 +29,7 @@
                           <td>{{ p.productname}}</td>
                           <td>${{ p.productprice}}</td>
                           <td style="text-align: center">
-                            <a href="#"><i class="fa-solid fa-pen-to-square"></i></i></i></a>
+                            <a href="{{path('product_edit',{'id':p.id})}}"><i class="fa-solid fa-pen-to-square"></i></i></i></a>
                           <td style="text-align: center">
                             <a href="{{path('product_delete',{'id':p.id})}}"><i class="fa-solid fa-trash"></i></i></a></td>
                       </tr>

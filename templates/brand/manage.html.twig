@@ -26,8 +26,8 @@
                       <tr>
                           <td>{{ b.id}}</td>
                           <td>{{ b.brandname}}</td>
-                          <td style="text-align: center">
-                            <a href=""><i class="fa-solid fa-pen-to-square"></i></i></i></a>
+                           <td style="text-align: center">
+                            <a href="{{path('brand_edit',{'id':b.id})}}"><i class="fa-solid fa-pen-to-square"></i></i></i></a>
                           <td style="text-align: center">
                             <a href=""><i class="fa-solid fa-trash"></i></i></a></td>
                       </tr>

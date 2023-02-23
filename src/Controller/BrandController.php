@@ -49,5 +49,25 @@ class BrandController extends AbstractController
         ]);
     }
 
-    
+    /**
+     * @Route("Clotheshub/brand/manage/edit/{id}", name="brand_edit", requirements={"id"="\d+"})
+     */
+    public function editBrandAction(
+        Request $req,
+        Brand $b,
+        SluggerInterface $slugger
+    ): Response {
+
+        $form = $this->createForm(BrandType::class, $b);
+
+        $form->handleRequest($req);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->repo->add($b, true);
+            return $this->redirectToRoute('brand_manage', [], Response::HTTP_SEE_OTHER);
+        }
+        return $this->render("brand/edit.html.twig", [
+            'form' => $form->createView()
+        ]);
+    }
+
 }

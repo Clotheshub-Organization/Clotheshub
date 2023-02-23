@@ -75,6 +75,17 @@ class ProductController extends AbstractController
     }
 
 
+    /**
+     * @Route("Clotheshub/product/delete/{id}",name="product_delete",requirements={"id"="\d+"})
+     */
+
+     public function deleteProductAction(Request $request, Product $p): Response
+     {
+         $this->repo->remove($p, true);
+         return $this->redirectToRoute('product_manage', [], Response::HTTP_SEE_OTHER);
+     }
+
+
     //  /**
     //  * @Route("/add", name="product_create")
     //  */

@@ -80,15 +80,22 @@
                 </div>
                 <div class="navbar align-self-center d-flex">
                     <div class="search">
-                        <form class="searchbox" action="search" method="GET">
+                        <form class="searchbox" action="{{path('search')}}" method="GET">
                             <input type="text" class="form-control" placeholder="Search..." name="search">
                             <button class="search_button"><i class="fa fa-fw fa-search text-dark mr-2"></i></button>
                         </form>
-                    </div>  
-                    <a class="nav-icon position-relative text-decoration-none" href="{{path('homepageCart' )}}">
-                        <i class="fa fa-fw fa-cart-arrow-down text-dark mr-1"></i>
-                        <span class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark"></span>
-                    </a>
+                    </div> 
+                    {% if app.user %} 
+                        <a class="nav-icon position-relative text-decoration-none" href="{{path('showCart')}}">
+                            <i class="fa fa-fw fa-cart-arrow-down text-dark mr-1"></i>
+                            <span class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark"></span>
+                        </a>
+                    {% else %}
+                        <a class="nav-icon position-relative text-decoration-none" href="{{path('login')}}">
+                            <i class="fa fa-fw fa-cart-arrow-down text-dark mr-1"></i>
+                            <span class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark"></span>
+                        </a>
+                    {% endif %}
                 </div>
             </div>
         </div>

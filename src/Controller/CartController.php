@@ -15,7 +15,7 @@ class CartController extends AbstractController
 {
 
     /**
-     * @Route("Clotheshub/AddCart/{id}", name="addCart")
+     * @Route("Clotheshub/cart/add/{id}", name="addCart")
      */
     public function addCart(Request $req, CartRepository $cartRepo, Product $product): Response
     {
@@ -72,4 +72,15 @@ class CartController extends AbstractController
             'total' => $total
         ]);
     }
+
+    /**
+     * @Route("Clotheshub/cart/delete/{product}",name="deleteCart", requirements={"product"="\d+"})
+     */
+
+     public function deleteBrandAction(CartRepository $repo, Cart $cart): Response
+     {
+         $repo->remove($cart, true);
+         return $this->redirectToRoute('showCart', [], Response::HTTP_SEE_OTHER);
+     }
+ 
 }

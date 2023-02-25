@@ -75,7 +75,7 @@ class CartController extends AbstractController
      * @Route("Clotheshub/cart/delete/{product}",name="deleteCart", requirements={"product"="\d+"})
      */
 
-    public function deleteBrandAction(CartRepository $repo, Cart $cart): Response
+    public function deleteCart(CartRepository $repo, Cart $cart): Response
     {
         $repo->remove($cart, true);
         return $this->redirectToRoute('showCart', [], Response::HTTP_SEE_OTHER);

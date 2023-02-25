@@ -28,10 +28,21 @@
                         </div>
                         <div class="col-12" style="margin: 30px auto; width:30%; justify-content:center;">
                             <h4>${{product.productprice}}</h4>
-                            <input type="number" style="float: center;" value="1" name="quantity" id="inputQuantity" value="quantity" min="1" max="99" class="form-control" required>
-                            <div class="atc">
-                                <button class="button" styles="width:120px;">Add to cart</button>
-                            </div>
+                            {% if app.user %}
+                            <form action="{{path('addCart',{'id':product.id})}}" methods="GET">
+                                <input type="number" name="quantity" id="inputQuantity" value="1" min="1" max="99" class="form-control" required>
+                                <div class="atc">
+                                    <button type="submit" class="button" styles="width:120px;">Add to cart</button>
+                                </div>
+                            </form>
+                            {% else %}
+                             <form action="{{path('login')}}">
+                                <input type="number" name="quantity" id="inputQuantity" value="1" min="1" max="99" class="form-control" required>
+                                <div class="atc">
+                                    <button type="submit" class="button" styles="width:120px;">Add to cart</button>
+                                </div>
+                            </form>
+                            {% endif %}
                         </div>
                     </div>
                 </div>

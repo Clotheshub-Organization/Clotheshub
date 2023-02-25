@@ -57,7 +57,7 @@ html {
     background: #fff;
     padding: 25px;
     margin: 0 auto;
-    margin-top: 60px;
+    margin-top: 20px;
     margin-bottom: 60px;
     border-radius: 8px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
@@ -115,7 +115,7 @@ html {
     background: #fff;
     padding: 25px;
     margin: 0 auto;
-    margin-top: 60px;
+    margin-top: 20px;
     margin-bottom: 60px;
     border-radius: 8px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
@@ -170,7 +170,7 @@ html {
         width: 100%;
         background: #fff;
         padding: 25px;
-        margin-top: 60px;
+        margin-top: 20px;
         margin-bottom: 60px;
         border-radius: 8px;
         box-shadow: 0 0 15px rgb(0 0 0 / 10%);
@@ -257,3 +257,54 @@ html {
     margin-top: 30px;
 }
 
+/* shopping cart container */
+.cart-container {
+    position: relative;
+    max-width: 1000px;
+    width: 100%;
+    background: #fff;
+    padding: 25px;
+    margin: 0 auto;
+    margin-top: 20px;
+    margin-bottom: 60px;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+/* order confirmation */
+.order-container {
+    position: relative;
+    max-width: 1000px;
+    width: 100%;
+    background: #fff;
+    padding: 25px;
+    margin: 0 auto;
+    margin-top: 20px;
+    margin-bottom: 60px;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+.order-container header {
+    font-size: 1.5rem;
+    color: #333;
+    font-weight: 500;
+    text-align: center;
+}
+
+.order-container p{
+    margin-top: 20px
+}
+
+.order-container .form {
+    margin-top: 30px;
+}
+
+.order-container .login-form-group label {
+    max-width: 100%;
+    margin-top: 20px;
+}
+
+.order-container .form-control {
+    width: 120%;
+}

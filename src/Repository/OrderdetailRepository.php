@@ -39,30 +39,44 @@ class OrderdetailRepository extends ServiceEntityRepository
         }
     }
 
-    
+    /**
+     * @return Orderdetail[] Returns an array of Orderdetail objects
+     */
+    public function showOrderdetail($value): array
+    {
+        return $this->createQueryBuilder('o')
+            ->select('o.id, p.image, p.productname, p.productprice, o.quantity, p.productprice*o.quantity as total')
+            ->innerJoin('o.product', 'p')
+            ->innerJoin('o.orders', 'od')
+            ->andWhere('o.orders = :id')
+            ->setParameter('id', $value)
+            ->getQuery()
+            ->getResult();
+    }
 
-//    /**
-//     * @return Orderdetail[] Returns an array of Orderdetail objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('o')
-//            ->andWhere('o.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('o.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
 
-//    public function findOneBySomeField($value): ?Orderdetail
-//    {
-//        return $this->createQueryBuilder('o')
-//            ->andWhere('o.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+    //    /**
+    //     * @return Orderdetail[] Returns an array of Orderdetail objects
+    //     */
+    //    public function findByExampleField($value): array
+    //    {
+    //        return $this->createQueryBuilder('o')
+    //            ->andWhere('o.exampleField = :val')
+    //            ->setParameter('val', $value)
+    //            ->orderBy('o.id', 'ASC')
+    //            ->setMaxResults(10)
+    //            ->getQuery()
+    //            ->getResult()
+    //        ;
+    //    }
+
+    //    public function findOneBySomeField($value): ?Orderdetail
+    //    {
+    //        return $this->createQueryBuilder('o')
+    //            ->andWhere('o.exampleField = :val')
+    //            ->setParameter('val', $value)
+    //            ->getQuery()
+    //            ->getOneOrNullResult()
+    //        ;
+    //    }
 }

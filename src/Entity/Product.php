@@ -3,8 +3,9 @@
 namespace App\Entity;
 
 use App\Repository\ProductRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Proxies\__CG__\App\Entity\Brand;
 
 /**
  * @ORM\Entity(repositoryClass=ProductRepository::class)
@@ -34,7 +35,7 @@ class Product
     private $productdes;
 
     /**
-     * @ORM\Column(type="decimal", precision=10, scale=2)
+     * @ORM\Column(type="decimal", precision=10)
      */
     private $productprice;
 
@@ -44,6 +45,21 @@ class Product
      */
     private $Brand;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Cart::class, mappedBy="product")
+     */
+    private $cartproduct;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Orderdetail::class, mappedBy="product")
+     */
+    private $orderdetails;
+
+    public function __construct()
+    {
+        $this->orderdetails = new ArrayCollection();
+    }
+  
     public function getId()
     {
         return $this->id;
@@ -105,6 +121,66 @@ class Product
     public function setBrand(?Brand $Brand): self
     {
         $this->Brand = $Brand;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Cart>
+     */
+    public function getCartproduct(): Collection
+    {
+        return $this->cartproduct;
+    }
+
+    public function addCartproduct(Cart $cartproduct): self
+    {
+        if (!$this->cartproduct->contains($cartproduct)) {
+            $this->cartproduct[] = $cartproduct;
+            $cartproduct->setProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCartproduct(Cart $cartproduct): self
+    {
+        if ($this->cartproduct->removeElement($cartproduct)) {
+            // set the owning side to null (unless already changed)
+            if ($cartproduct->getProduct() === $this) {
+                $cartproduct->setProduct(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Orderdetail>
+     */
+    public function getOrderdetails(): Collection
+    {
+        return $this->orderdetails;
+    }
+
+    public function addOrderdetail(Orderdetail $orderdetail): self
+    {
+        if (!$this->orderdetails->contains($orderdetail)) {
+            $this->orderdetails[] = $orderdetail;
+            $orderdetail->setProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOrderdetail(Orderdetail $orderdetail): self
+    {
+        if ($this->orderdetails->removeElement($orderdetail)) {
+            // set the owning side to null (unless already changed)
+            if ($orderdetail->getProduct() === $this) {
+                $orderdetail->setProduct(null);
+            }
+        }
 
         return $this;
     }

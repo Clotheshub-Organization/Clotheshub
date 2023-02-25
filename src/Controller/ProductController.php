@@ -34,7 +34,7 @@ class ProductController extends AbstractController
     /**
      * @Route("Clotheshub/product/{id}", name="product_detail", requirements={"id"="\d+"})
      */
-    public function productDetail(Product $product): Response
+    public function productDetail(Product $product, ProductRepository $productRepo): Response
     {
         return $this->render('product/productdetail.html.twig', [
             'product' => $product

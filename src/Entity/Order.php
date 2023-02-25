@@ -27,7 +27,7 @@ class Order
     private $user;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="decimal", precision=10)
      */
     private $total;
 

@@ -52,9 +52,8 @@ class CartRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
-    
 
-        /**
+    /**
      * @return Cart[] Returns an array of Cart objects
      */
     public function findCart($value): array
@@ -68,7 +67,9 @@ class CartRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    
+
+
+
 
     // SELECT p.image, p.productname, p.productprice, p.id, c.user_id, c.quantity, p.productprice*c.quantity as total 
     // FROM cart as c INNER JOIN product as p ON c.product_id = p.id 

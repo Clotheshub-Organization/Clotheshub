@@ -3,9 +3,18 @@
 namespace App\Controller;
 
 use App\Entity\Cart;
+use App\Entity\Order;
+use App\Entity\Orderdetail;
 use App\Entity\Product;
+use App\Entity\User;
 use App\Repository\BrandRepository;
 use App\Repository\CartRepository;
+use App\Repository\OrderdetailRepository;
+use App\Repository\OrderRepository;
+use App\Repository\ProductRepository;
+use App\Repository\UserRepository;
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,7 +22,6 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class CartController extends AbstractController
 {
-
     /**
      * @Route("Clotheshub/cart/add/{id}", name="addCart")
      */
@@ -24,7 +32,9 @@ class CartController extends AbstractController
         $data[] = [
             'id' => $user->getId()
         ];
+
         // $userid = $data[0]['id'];
+
         $cart = $cartRepo->findBy([
             'product' => $product,
             'user' => $user
@@ -46,6 +56,15 @@ class CartController extends AbstractController
         return $this->redirectToRoute('showCart', [], Response::HTTP_SEE_OTHER);
     }
 
+    /**
+     * @Route("Clotheshub/cart/delete/{product}",name="deleteCart", requirements={"product"="\d+"})
+     */
+
+    public function deleteCart(CartRepository $repo, Cart $cart): Response
+    {
+        $repo->remove($cart, true);
+        return $this->redirectToRoute('showCart', [], Response::HTTP_SEE_OTHER);
+    }
 
     /**
      * @Route("Clotheshub/Cart", name="showCart")
@@ -57,37 +76,28 @@ class CartController extends AbstractController
             'id' => $user->getId()
         ];
         $userid = $data[0]['id'];
-        $product = $repoCart->showCart($userid);
+        $products = $repoCart->showCart($userid);
+
         $total = 0;
-        foreach ($product as $p) {
+        foreach ($products as $p) {
             $total += $p['total'];
         }
+
         $brand = $reopBrand->findAll();
         // return $this->json($product);
         return $this->render('cart/cart.html.twig', [
-            'product' => $product,
+            'products' => $products,
             'brand' => $brand,
             'total' => $total
         ]);
     }
 
     /**
-     * @Route("Clotheshub/cart/delete/{product}",name="deleteCart", requirements={"product"="\d+"})
-     */
-
-    public function deleteCart(CartRepository $repo, Cart $cart): Response
-    {
-        $repo->remove($cart, true);
-        return $this->redirectToRoute('showCart', [], Response::HTTP_SEE_OTHER);
-    }
-
-     /**
-     * @Route("Clotheshub/order/{user}", name="show_order", requirements={"id"="\d+"})
+     * @Route("Clotheshub/order/{user}", name="add_order", requirements={"user"="\d+"})
      */
     public function showOrder(OrderRepository $orderRepo, CartRepository $cartRepo, OrderdetailRepository $detailRepo, BrandRepository $brandRepo, ProductRepository $productRepo, EntityManagerInterface $en): Response
     {
         // insert into order table
-        $brand = $brandRepo->findAll();
         $order = new Order();
         // get user id
         $user = $this->getUser();
@@ -102,17 +112,87 @@ class CartController extends AbstractController
         // get product id and quantity from cart
         $product = $cartRepo->findCart($userid);
 
-        $total =0;
-        foreach($product as $p){
+        $total = 0;
+        foreach ($product as $p) {
             $total += $p['total'];
         }
         $order->setTotal($total);
         $order->setDate(new \DateTime());
         $orderRepo->add($order, true);
 
-        return $this->render('order/order.html.twig', [
-        ]);
+        //insert into order detail table
+        $orderid = $orderRepo->orderdetail($userid)[0]['id'];
+        $orderobject = $orderRepo->find($orderid);
+
+        // $cart_userid = $cartRepo->findcart($id);
+
+        foreach ($product as $p) {
+            $orderdetail = new Orderdetail();
+            $product = $p['id'];
+            $productobject = $productRepo->find($product);
+            $quantity = $p['quantity'];
+            $orderdetail->setOrders($orderobject);
+            $orderdetail->setProduct($productobject);
+            $orderdetail->setQuantity($quantity);
+            $detailRepo->add($orderdetail, true);
+        }
+
+        // delete cart after checkout
+        $deletecart = $cartRepo->findAll();
+        foreach ($deletecart as $delcart) {
+            $en->remove($delcart);
+        }
+        $en->flush();
+
+        // show order and order detail
+        // $orderdetailtemplate = $detailRepo->showOrderdetail($orderid);
+        // $ordertemplate = $orderRepo->userOrder();
+        // $brand = $brandRepo->findAll();
+
+        return $this->redirectToRoute('orderConfirm', [], Response::HTTP_SEE_OTHER);
+
+        // show order confirmation
+        // return $this->render('order/orderconfirm.html.twig', [
+        //     'order' => $ordertemplate,
+        //     'orderdetail' => $orderdetailtemplate,
+        //     'brand' => $brand,
+        //     'total' => $total
+        // ]);
     }
 
 
+    /**
+     * @Route("Clotheshub/order/confirm", name="orderConfirm")
+     */
+    public function orderDetail(UserRepository $userRepo, CartRepository $cartRepo, BrandRepository $brandRepo, OrderRepository $orderRepo, OrderdetailRepository $detailRepo): Response
+    {
+        $user = $this->getUser();
+        $data[] = [
+            'id' => $user->getId()
+        ];
+        $userid = $data[0]['id'];
+
+        $orderid = $orderRepo->orderdetail($userid)[0]['id'];
+
+        $product = $cartRepo->findCart($userid);
+
+        $total = 0;
+        foreach ($product as $p) {
+            $total += $p['total'];
+        }
+
+         // show order and order detail
+        $orderdetailtemplate = $detailRepo->showOrderdetail($orderid);
+        $ordertemplate = $orderRepo->userOrder();
+
+        $userdata = $userRepo->userData($userid);
+
+         // show order confirmation
+        return $this->render('order/orderconfirm.html.twig', [
+            'order' => $ordertemplate,
+            'orderdetail' => $orderdetailtemplate,
+            'userdata' => $userdata,
+            'total' => $total
+        ]);
+    }
 }

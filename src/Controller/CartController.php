@@ -83,11 +83,9 @@ class CartController extends AbstractController
             $total += $p['total'];
         }
 
-        $brand = $reopBrand->findAll();
-        // return $this->json($product);
+        // return $this->json($total);
         return $this->render('cart/cart.html.twig', [
             'products' => $products,
-            'brand' => $brand,
             'total' => $total
         ]);
     }

@@ -93,7 +93,7 @@ class CartController extends AbstractController
     /**
      * @Route("Clotheshub/order/{user}", name="add_order", requirements={"user"="\d+"})
      */
-    public function showOrder(OrderRepository $orderRepo, CartRepository $cartRepo, OrderdetailRepository $detailRepo, BrandRepository $brandRepo, ProductRepository $productRepo, EntityManagerInterface $en): Response
+    public function showOrder(OrderRepository $orderRepo, CartRepository $cartRepo, OrderdetailRepository $detailRepo, ProductRepository $productRepo, EntityManagerInterface $en): Response
     {
         // insert into order table
         $order = new Order();
@@ -116,6 +116,7 @@ class CartController extends AbstractController
         }
         $order->setTotal($total);
         $order->setDate(new \DateTime());
+        // insert into order table after has enought data
         $orderRepo->add($order, true);
 
         //insert into order detail table
@@ -132,6 +133,7 @@ class CartController extends AbstractController
             $orderdetail->setOrders($orderobject);
             $orderdetail->setProduct($productobject);
             $orderdetail->setQuantity($quantity);
+            // insert into order detial table after has enought data
             $detailRepo->add($orderdetail, true);
         }
 
@@ -179,13 +181,13 @@ class CartController extends AbstractController
             $total += $p['total'];
         }
 
-         // show order and order detail
+        // show order and order detail
         $orderdetailtemplate = $detailRepo->showOrderdetail($orderid);
         $ordertemplate = $orderRepo->userOrder();
 
         $userdata = $userRepo->userData($userid);
 
-         // show order confirmation
+        // show order confirmation
         return $this->render('order/orderconfirm.html.twig', [
             'order' => $ordertemplate,
             'orderdetail' => $orderdetailtemplate,
